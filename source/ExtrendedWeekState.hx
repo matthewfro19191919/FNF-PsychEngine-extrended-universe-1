@@ -29,7 +29,7 @@ typedef ExtrendedWeekFile =
 }
 
 class ExtrendedWeekState {
-	public static var ArcweeksLoaded:Map<String, ArcWeekData> = new Map<String, ArcWeekData>();
+	public static var ArcweeksLoaded:Map<String> = new Map<String>();
 	public static var ArcweeksList:Array<String> = [];
 	public var folder:String = '';
 	
