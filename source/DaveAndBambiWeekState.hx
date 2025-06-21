@@ -115,10 +115,10 @@ class DaveAndBambiWeekState {
 		var originalLength:Int = directories.length;
 		#end
 
-		var sexList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('universe-weeks/Universe/weekList.txt'));
+		var sexList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('universe-weeks/DaveAndBambi/weekList.txt'));
 		for (i in 0...sexList.length) {
 			for (j in 0...directories.length) {
-				var fileToCheck:String = directories[j] + 'universe-weeks/Universe/' + sexList[i] + '.json';
+				var fileToCheck:String = directories[j] + 'universe-weeks/DaveAndBambi/' + sexList[i] + '.json';
 				if(!ArcweeksLoaded.exists(sexList[i])) {
 					var Arcweek:ExtrendedWeekFile = getExtrendedWeekFile(fileToCheck);
 					if(Arcweek != null) {
@@ -141,7 +141,7 @@ class DaveAndBambiWeekState {
 
 		#if MODS_ALLOWED
 		for (i in 0...directories.length) {
-			var directory:String = directories[i] + 'universe-weeks/Universe/';
+			var directory:String = directories[i] + 'universe-weeks/DaveAndBambi/';
 			if(FileSystem.exists(directory)) {
 				var listOfWeeks:Array<String> = CoolUtil.coolTextFile(directory + 'weekList.txt');
 				for (daWeek in listOfWeeks)
