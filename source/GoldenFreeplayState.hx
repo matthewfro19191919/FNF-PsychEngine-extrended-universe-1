@@ -19,7 +19,7 @@ import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
 import GoldenWeekState;
 import FreeplayState;‎
-import FreeplayState.SongMetadata‎;
+import FreeplayState.SongMetadata;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
