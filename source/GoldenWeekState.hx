@@ -11,7 +11,7 @@ import haxe.format.JsonParser;
 
 using StringTools;
 
-typedef GoldenWeekFile =
+typedef GoldenWeekFile = 
 {
 	// JSON variables
 	var songs:Array<Dynamic>;
@@ -29,8 +29,8 @@ typedef GoldenWeekFile =
 }
 
 class ArcWeekData {
-	public static var universe-weeksLoaded:Map<String, ArcWeekData> = new Map<String, ArcWeekData>();
-	public static var universe-weeksList:Array<String> = [];
+	public static var ArcweeksLoaded:Map<String, ArcWeekData> = new Map<String, ArcWeekData>();
+	public static var ArcweeksList:Array<String> = [];
 	public var folder:String = '';
 	
 	// JSON variables
@@ -87,8 +87,8 @@ class ArcWeekData {
 
 	public static function reloadGoldenWeekFiles(isArcStoryMode:Null<Bool> = false)
 	{
-		universe-weeksList = [];
-		universe-weeksLoaded.clear();
+		ArcweeksList = [];
+		ArcweeksLoaded.clear();
 		#if MODS_ALLOWED
 		var disabledMods:Array<String> = [];
 		var modsListPath:String = 'modsList.txt';
@@ -136,7 +136,7 @@ class ArcWeekData {
 		for (i in 0...sexList.length) {
 			for (j in 0...directories.length) {
 				var fileToCheck:String = directories[j] + 'universe-weeks/Golden/.' + sexList[i] + '.json';
-				if(!universe-weeksLoaded.exists(sexList[i])) {
+				if(!ArcweeksLoaded.exists(sexList[i])) {
 					var Arcweek:GoldenWeekFile = getGoldenWeekFile(fileToCheck);
 					if(Arcweek != null) {
 						var GoldenWeekFile:ArcWeekData = new ArcWeekData(Arcweek, sexList[i]);
@@ -148,8 +148,8 @@ class ArcWeekData {
 						#end
 
 						if(GoldenWeekFile != null && (isArcStoryMode == null || (isArcStoryMode && !GoldenWeekFile.hideStoryMode) || (!isArcStoryMode && !GoldenWeekFile.hideFreeplay))) {
-							universe-weeksLoaded.set(sexList[i], GoldenWeekFile);
-							universe-weeksList.push(sexList[i]);
+							ArcweeksLoaded.set(sexList[i], GoldenWeekFile);
+							ArcweeksList.push(sexList[i]);
 						}
 					}
 				}
@@ -185,7 +185,7 @@ class ArcWeekData {
 
 	private static function addWeek(ArcweekToCheck:String, path:String, directory:String, i:Int, originalLength:Int)
 	{
-		if(!universe-weeksLoaded.exists(ArcweekToCheck))
+		if(!ArcweeksLoaded.exists(ArcweekToCheck))
 		{
 			var week:GoldenWeekFile = getGoldenWeekFile(path);
 			if(week != null)
@@ -199,8 +199,8 @@ class ArcWeekData {
 				}
 				if((PlayState.isArcStoryMode && !GoldenWeekFile.hideStoryMode) || (!PlayState.isArcStoryMode && !GoldenWeekFile.hideFreeplay))
 				{
-					universe-weeksLoaded.set(ArcweekToCheck, GoldenWeekFile);
-					universe-weeksList.push(ArcweekToCheck);
+					ArcweeksLoaded.set(ArcweekToCheck, GoldenWeekFile);
+					ArcweeksList.push(ArcweekToCheck);
 				}
 			}
 		}
@@ -228,12 +228,12 @@ class ArcWeekData {
 
 	//To use on PlayState.hx or Highscore stuff
 	public static function getGoldenWeekFileName():String {
-		return universe-weeksList[PlayState.storyWeek];
+		return ArcweeksList[PlayState.storyWeek];
 	}
 
 	//Used on LoadingState, nothing really too relevant
 	public static function getCurrentArcWeek():ArcWeekData {
-		return universe-weeksLoaded.get(universe-weeksList[PlayState.ArcstoryWeek]);
+		return ArcweeksLoaded.get(ArcweeksList[PlayState.ArcstoryWeek]);
 	}
 
 	public static function setDirectoryFromWeek(?data:ArcWeekData = null) {
