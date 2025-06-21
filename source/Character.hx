@@ -8,6 +8,7 @@ import flixel.animation.FlxBaseAnimation;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxSort;
+import flixel.sound.FlxSound;
 import Section.SwagSection;
 #if MODS_ALLOWED
 import sys.io.File;
