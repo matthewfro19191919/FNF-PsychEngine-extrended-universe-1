@@ -264,4 +264,4 @@ class ArcWeekData {
 		}
 		#end
 	}
-}c
+}
