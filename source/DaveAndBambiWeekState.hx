@@ -11,7 +11,7 @@ import haxe.format.JsonParser;
 
 using StringTools;
 
-typedef ArcWeekFile =
+typedef DaveAndBambiWeekFile =
 {
 	// JSON variables
 	var songs:Array<Dynamic>;
@@ -49,8 +49,8 @@ class ExtrendedWeekState {
 
 	public var fileName:String;
 
-	public static function createArcWeekFile():ArcWeekFile {
-		var ArcweekFile:ArcWeekFile = {
+	public static function createDaveAndBambiWeekFile():DaveAndBambiWeekFile {
+		var DaveAndBambiWeekFile:DaveAndBambiWeekFile = {
 			songs: [["Bopeebo", "dad", [146, 113, 253]], ["Fresh", "dad", [146, 113, 253]], ["Dad Battle", "dad", [146, 113, 253]]],
 			weekCharacters: ['dad', 'bf', 'gf'],
 			weekBackground: 'stage',
@@ -64,28 +64,28 @@ class ExtrendedWeekState {
 			hideFreeplay: false,
 			difficulties: ''
 		};
-		return ArcweekFile;
+		return DaveAndBambiWeekFile;
 	}
 
 	// HELP: Is there any way to convert a WeekFile to WeekData without having to put all variables there manually? I'm kind of a noob in haxe lmao
-	public function new(ArcweekFile:ArcWeekFile, fileName:String) {
-		songs = ArcweekFile.songs;
-		weekCharacters = ArcweekFile.weekCharacters;
-		weekBackground = ArcweekFile.weekBackground;
-		weekBefore = ArcweekFile.weekBefore;
-		storyName = ArcweekFile.storyName;
-		weekName = ArcweekFile.weekName;
-		freeplayColor = ArcweekFile.freeplayColor;
-		startUnlocked = ArcweekFile.startUnlocked;
-		hiddenUntilUnlocked = ArcweekFile.hiddenUntilUnlocked;
-		hideStoryMode = ArcweekFile.hideStoryMode;
-		hideFreeplay = ArcweekFile.hideFreeplay;
-		difficulties = ArcweekFile.difficulties;
+	public function new(DaveAndBambiWeekFile:DaveAndBambiWeekFile, fileName:String) {
+		songs = DaveAndBambiWeekFile.songs;
+		weekCharacters = DaveAndBambiWeekFile.weekCharacters;
+		weekBackground = DaveAndBambiWeekFile.weekBackground;
+		weekBefore = DaveAndBambiWeekFile.weekBefore;
+		storyName = DaveAndBambiWeekFile.storyName;
+		weekName = DaveAndBambiWeekFile.weekName;
+		freeplayColor = DaveAndBambiWeekFile.freeplayColor;
+		startUnlocked = DaveAndBambiWeekFile.startUnlocked;
+		hiddenUntilUnlocked = DaveAndBambiWeekFile.hiddenUntilUnlocked;
+		hideStoryMode = DaveAndBambiWeekFile.hideStoryMode;
+		hideFreeplay = DaveAndBambiWeekFile.hideFreeplay;
+		difficulties = DaveAndBambiWeekFile.difficulties;
 
 		this.fileName = fileName;
 	}
 
-	public static function reloadArcWeekFiles(isArcStoryMode:Null<Bool> = false)
+	public static function reloadDaveAndBambiWeekFiles(isArcStoryMode:Null<Bool> = false)
 	{
 		ArcweeksList = [];
 		ArcweeksLoaded.clear();
@@ -137,18 +137,18 @@ class ExtrendedWeekState {
 			for (j in 0...directories.length) {
 				var fileToCheck:String = directories[j] + 'universe-weeks/DaveAndBambi/' + sexList[i] + '.json';
 				if(!ArcweeksLoaded.exists(sexList[i])) {
-					var Arcweek:ArcWeekFile = getArcWeekFile(fileToCheck);
+					var Arcweek:DaveAndBambiWeekFile = getDaveAndBambiWeekFile(fileToCheck);
 					if(Arcweek != null) {
-						var ArcweekFile:ArcWeekData = new ArcWeekData(Arcweek, sexList[i]);
+						var DaveAndBambiWeekFile:ArcWeekData = new ArcWeekData(Arcweek, sexList[i]);
 
 						#if MODS_ALLOWED
 						if(j >= originalLength) {
-							ArcweekFile.folder = directories[j].substring(Paths.mods().length, directories[j].length-1);
+							DaveAndBambiWeekFile.folder = directories[j].substring(Paths.mods().length, directories[j].length-1);
 						}
 						#end
 
-						if(ArcweekFile != null && (isArcStoryMode == null || (isArcStoryMode && !ArcweekFile.hideStoryMode) || (!isArcStoryMode && !ArcweekFile.hideFreeplay))) {
-							ArcweeksLoaded.set(sexList[i], ArcweekFile);
+						if(DaveAndBambiWeekFile != null && (isArcStoryMode == null || (isArcStoryMode && !DaveAndBambiWeekFile.hideStoryMode) || (!isArcStoryMode && !DaveAndBambiWeekFile.hideFreeplay))) {
+							ArcweeksLoaded.set(sexList[i], DaveAndBambiWeekFile);
 							ArcweeksList.push(sexList[i]);
 						}
 					}
@@ -187,26 +187,26 @@ class ExtrendedWeekState {
 	{
 		if(!ArcweeksLoaded.exists(ArcweekToCheck))
 		{
-			var week:ArcWeekFile = getArcWeekFile(path);
+			var week:DaveAndBambiWeekFile = getDaveAndBambiWeekFile(path);
 			if(week != null)
 			{
-				var ArcweekFile:ArcWeekData = new ArcWeekData(week, ArcweekToCheck);
+				var DaveAndBambiWeekFile:ArcWeekData = new ArcWeekData(week, ArcweekToCheck);
 				if(i >= originalLength)
 				{
 					#if MODS_ALLOWED
-					ArcweekFile.folder = directory.substring(Paths.mods().length, directory.length-1);
+					DaveAndBambiWeekFile.folder = directory.substring(Paths.mods().length, directory.length-1);
 					#end
 				}
-				if((PlayState.isArcStoryMode && !ArcweekFile.hideStoryMode) || (!PlayState.isArcStoryMode && !ArcweekFile.hideFreeplay))
+				if((PlayState.isArcStoryMode && !DaveAndBambiWeekFile.hideStoryMode) || (!PlayState.isArcStoryMode && !DaveAndBambiWeekFile.hideFreeplay))
 				{
-					ArcweeksLoaded.set(ArcweekToCheck, ArcweekFile);
+					ArcweeksLoaded.set(ArcweekToCheck, DaveAndBambiWeekFile);
 					ArcweeksList.push(ArcweekToCheck);
 				}
 			}
 		}
 	}
 
-	private static function getArcWeekFile(path:String):ArcWeekFile {
+	private static function getDaveAndBambiWeekFile(path:String):DaveAndBambiWeekFile {
 		var rawJson:String = null;
 		#if MODS_ALLOWED
 		if(FileSystem.exists(path)) {
@@ -227,7 +227,7 @@ class ExtrendedWeekState {
 	//   FUNCTIONS YOU WILL PROBABLY NEVER NEED TO USE
 
 	//To use on PlayState.hx or Highscore stuff
-	public static function getArcWeekFileName():String {
+	public static function getDaveAndBambiWeekFileName():String {
 		return ArcweeksList[PlayState.storyWeek];
 	}
 
